@@ -1,0 +1,26 @@
+где и что будет находится
+cmd main и  service_provider(controller, db, provider, repos, roter, usecase)
+db - migrations
+internal
+    adapter ( memory and postgres)
+    config (cluster)
+    controller (model_contoller, errors and http utils)
+    domain (model and dto)
+    pkg (timer, randomer)
+    usecase
+
+Client (curl / browser)
+        │
+        ▼
+Controller (HTTP) — internal/controller/http.go
+        │
+        ▼
+Usecase (бизнес-логика) — internal/usecase/shortener.go
+        │
+        ▼
+Storage interface — internal/storage/storage.go
+        │
+  ┌─────┴────────┐
+  │              │
+Memory adapter   Postgres adapter (опционально)
+internal/adapter/memory   internal/adapter/postgres
