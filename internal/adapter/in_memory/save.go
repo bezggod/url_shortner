@@ -1,4 +1,4 @@
-package url_storage
+package in_memory
 
 import (
 	"context"
@@ -17,11 +17,12 @@ func (r *Repo) Save(_ context.Context, original string) (string, error) {
 	if err != nil {
 		return "", err
 	}
+
 	r.mu.Lock()
 	defer r.mu.Unlock()
 
 	r.byOrig[original] = code
 	r.byShort[code] = original
 
-	return original, nil
+	return code, nil
 }

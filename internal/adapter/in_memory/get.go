@@ -1,4 +1,4 @@
-package url_storage
+package in_memory
 
 import "context"
 

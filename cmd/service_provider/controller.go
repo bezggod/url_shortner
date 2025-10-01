@@ -1,10 +1,12 @@
 package service_provider
 
-import "url_shortner/internal/controller"
+import (
+	"url_shortner/internal/controller/http_controller"
+)
 
-func (s *ServiceProvider) GetURLController() *controller.Controller {
+func (s *ServiceProvider) getURLController() *http_controller.Controller {
 	if s.urlController == nil {
-		s.urlController = controller.NewController(s.urlUseCase)
+		s.urlController = http_controller.NewController(s.getUseCase())
 	}
 	return s.urlController
 }

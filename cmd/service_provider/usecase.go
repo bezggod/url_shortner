@@ -2,9 +2,9 @@ package service_provider
 
 import "url_shortner/internal/usecase"
 
-func (s *ServiceProvider) UseCase() *usecase.UseCase {
+func (s *ServiceProvider) getUseCase() *usecase.UseCase {
 	if s.urlUseCase == nil {
-		s.urlUseCase = usecase.NewUseCase(s.urlRepo)
+		s.urlUseCase = usecase.NewUseCase(s.getURLRepo())
 	}
 	return s.urlUseCase
 }

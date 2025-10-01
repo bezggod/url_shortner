@@ -4,9 +4,8 @@ import "net/http"
 
 func (s *ServiceProvider) GetRoutes() *http.ServeMux {
 	mux := http.NewServeMux()
-
-	mux.HandleFunc("POST /shorten", s.GetURLController().Create)
-	mux.HandleFunc("GET /{code}", s.GetURLController().Resolve)
-
+	ctrl := s.getURLController()
+	mux.HandleFunc("POST /shorten", ctrl.Create)
+	mux.HandleFunc("GET /{code}", ctrl.Resolve)
 	return mux
 }

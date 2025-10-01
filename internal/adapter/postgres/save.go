@@ -9,9 +9,11 @@ import (
 func (r *Repo) Save(ctx context.Context, original string) (string, error) {
 	var existing string
 	err := r.cluster.Conn.QueryRow(ctx,
-		`SELECT short_url FROM url_mappings WHERE id = $1`, original).
-		Scan(&existing)
-	if err != nil {
+		`SELECT short_url FROM url_mappings WHERE original_url = $1`,
+		original,
+	).Scan(&existing)
+
+	if err == nil {
 		return existing, nil
 	}
 
@@ -19,12 +21,13 @@ func (r *Repo) Save(ctx context.Context, original string) (string, error) {
 	if err != nil {
 		return "", err
 	}
-
 	_, err = r.cluster.Conn.Exec(ctx,
-		`INSERT INTO url_mappings (short_url) VALUES ($1)`, code)
+		`INSERT INTO url_mappings (original_url, short_url) VALUES ($1, $2)`,
+		original, code,
+	)
 	if err != nil {
 		return "", fmt.Errorf("failed to insert url mapping: %w", err)
 	}
-	return code, nil
 
+	return code, nil
 }
