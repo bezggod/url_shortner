@@ -1,4 +1,4 @@
-package controller
+package http_controller
 
 import "net/http"
 
