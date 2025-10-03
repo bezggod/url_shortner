@@ -4,7 +4,7 @@ create table url_mappings
 (
     id         bigserial primary key,
     original_url TEXT not null UNIQUE,
-    short_url char(10) not null unique,
+    short_url char(10) not null UNIQUE,
     created_at timestamptz not null default now()
 
 );

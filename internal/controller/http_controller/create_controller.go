@@ -19,8 +19,9 @@ func (c *Controller) Create(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "bad reques", http.StatusBadRequest)
 		return
 	}
+	ctx := r.Context()
 
-	code, err := c.uc.Create(req.URL)
+	code, err := c.uc.Create(ctx, req.URL)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return

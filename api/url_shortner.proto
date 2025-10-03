@@ -1,0 +1,28 @@
+// нужны юскейсы для rpc
+
+syntax = "proto3";
+
+package url_shortner;
+
+option go_package = "url_shortner/internal/pb/url_shortner;urlpb";
+
+service URLShortner{
+  rpc Shorten (ShortenReq) returns (ShortenResp);
+  rpc Resolve (ResolveReq) returns (ResolveResp);
+}
+
+message ShortenReq {
+  string original_url = 1;
+}
+
+message ShortenResp{
+  string short_url = 1;
+}
+
+message ResolveReq {
+  string short_url = 1;
+}
+
+message ResolveResp{
+  string original_url = 1;
+}

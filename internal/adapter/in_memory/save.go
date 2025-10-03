@@ -21,6 +21,10 @@ func (r *Repo) Save(_ context.Context, original string) (string, error) {
 	r.mu.Lock()
 	defer r.mu.Unlock()
 
+	if sc, ok := r.byOrig[original]; ok {
+		return sc, nil
+	}
+
 	r.byOrig[original] = code
 	r.byShort[code] = original
 
